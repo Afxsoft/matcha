@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title><?php echo (!empty($title)) ? htmlspecialchars($title) :'' ?></title>
+    <title><?php render($title); ?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -12,19 +12,19 @@
     <nav class="left">
         <a href="#menu"><span>Menu</span></a>
     </nav>
-    <a href="<?php echo $app->getContainer()->get('router')->pathFor('home');?>" class="logo">Matcha</a>
+    <a href="<?php render(path($app, 'home')); ?>" class="logo">Matcha</a>
     <nav class="right">
-        <a href="#" class="button alt">Login</a>
+        <a href="<?php  render(path($app, 'login')); ?>" class="button alt">Login</a>
     </nav>
 </header>
 
 <nav id="menu">
     <ul class="links">
-        <li><a href="/">Home</a></li>
-        <li><a href="generic">Generic</a></li>
-        <li><a href="elements.html">Elements</a></li>
+        <li><a href="<?php render(path($app, 'home')); ?>">Home</a></li>
+        <li><a href="<?php render(path($app, 'home')); ?>">Generic</a></li>
+        <li><a href="<?php render(path($app, 'home')); ?>">Elements</a></li>
     </ul>
     <ul class="actions vertical">
-        <li><a href="#" class="button fit">Login</a></li>
+        <li><a href="<?php render(path($app, 'login')); ?>" class="button fit">Login</a></li>
     </ul>
 </nav>
