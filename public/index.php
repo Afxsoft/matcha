@@ -22,14 +22,14 @@ require __DIR__ . '/../src/dependencies.php';
 require __DIR__ . '/../src/middleware.php';
 
 //Connexion
-require  __DIR__ . '/../src/connexion.php';
+require  __DIR__ . '/../src/library/connexion.php';
 
 $connexion = new Connexion();
 $connexion->connect_db();
 
 
 // Helpers
-require __DIR__ . '/../src/helpers.php';
+require __DIR__ . '/../src/tools/helpers.php';
 
 // Register routes
 require __DIR__ . '/../src/routes.php';
