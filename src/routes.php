@@ -1,25 +1,21 @@
 <?php
 // Routes
 
-$app->get('/', function ($request, $response, $args) {
-    $args['title'] = "Accueil - Matcha";
-
-    // Render index view
+//Home
+$app->get('/', function ($request, $response, $args) use($app){
+    $args['title'] = "Accueil";
+    $args['app'] = $app;
     return $this->renderer->render($response, 'index.phtml', $args);
-});
-$app->get('generique', function ($request, $response, $args) {
-    // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
+})->setName('home');
 
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
-});
-$app->get('/login', function ($request, $response, $args) {
-    $args['title'] = "login - Matcha";
+//Login
+$app->get('/login', function ($request, $response, $args) use($app){
+    $args['title'] = "login";
     return $this->renderer->render($response, 'login.phtml', $args);
-});
+})->setName('login');
 
-$app->get('/signup', function ($request, $response, $args) {
-    $args['title'] = "Inscription - Matcha";
+//Signup
+$app->get('/signup', function ($request, $response, $args) use($app){
+    $args['title'] = "Signup";
     return $this->renderer->render($response, 'signup.phtml', $args);
-});
+})->setName('signup');

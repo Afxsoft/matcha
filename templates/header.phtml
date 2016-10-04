@@ -12,9 +12,9 @@
     <nav class="left">
         <a href="#menu"><span>Menu</span></a>
     </nav>
-    <a href="/" class="logo">Matcha</a>
+    <a href="<?php echo $app->getContainer()->get('router')->pathFor('home');?>" class="logo">Matcha</a>
     <nav class="right">
-        <a href="#" class="button alt">Log in</a>
+        <a href="#" class="button alt">Login</a>
     </nav>
 </header>
 
