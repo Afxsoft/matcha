@@ -21,6 +21,16 @@ require __DIR__ . '/../src/dependencies.php';
 // Register middleware
 require __DIR__ . '/../src/middleware.php';
 
+//Connexion
+require  __DIR__ . '/../src/connexion.php';
+
+$connexion = new Connexion();
+$connexion->connect_db();
+
+
+// Helpers
+require __DIR__ . '/../src/helpers.php';
+
 // Register routes
 require __DIR__ . '/../src/routes.php';
 
