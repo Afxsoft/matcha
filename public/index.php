@@ -27,6 +27,9 @@ require  __DIR__ . '/../src/library/connexion.php';
 $connexion = new Connexion();
 $connexion->connect_db();
 
+//Model
+require __DIR__ . '/../src/library/model.php';
+require __DIR__ . '/../src/model/user.php';
 
 // Helpers
 require __DIR__ . '/../src/tools/helpers.php';

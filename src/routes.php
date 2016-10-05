@@ -21,3 +21,16 @@ $app->get('/signup', function ($request, $response, $args) use($app){
     $args['app']   = $app;
     return $this->renderer->render($response, 'signup.phtml', $args);
 })->setName('signup');
+$app->post('/signup', function ($request, $response, $args) use($connexion, $app){
+    $args['title'] = "Signup";
+    $args['app']   = $app;
+    $user = new User($connexion->get_cx());
+    $user->addUser($_POST);
+    return $this->renderer->render($response, 'signup.phtml', $args);
+})->setName('signup');
+
+//User
+$app->get('/profil/{login}', function($resquest, $response, $args) use($connexion, $app){
+    $user = new User($connexion->get_cx());
+    dump($user->getUserByLogin($args['login']));
+});

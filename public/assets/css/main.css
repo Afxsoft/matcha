@@ -3203,3 +3203,21 @@
 				}
 
 		}
+/*error*/
+.message_top{
+	color: #fff;
+	padding: 14px 10px;
+	margin-bottom: 23px;
+}
+.message_top.info{
+	background: deepskyblue;
+	opacity: 0.6;
+}
+.message_top.error{
+	background: red;
+	opacity: 0.6;
+}
+.message_top.success{
+	background: limegreen;
+	opacity: 0.6;
+}

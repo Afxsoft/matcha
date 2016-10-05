@@ -3,24 +3,23 @@
         <div class="inner">
             <h3>Signup</h3>
 
-            <form method="post" action="#">
+            <form method="post" action="<?php render(path($app, 'signup')) ?>">
                 <div class="row uniform">
                     <div class="12u">
-                        <input type="text" name="login" id="login" value="" placeholder="Login" />
+                        <input type="text" name="login" id="login" value="" placeholder="Login" required />
                     </div>
                     <div class="12u">
-                        <input type="email" name="email" id="email" value="" placeholder="Email" />
+                        <input type="email" name="email" id="email" value="" placeholder="Email" required />
                     </div>
                     <div class="12u">
-                        <input type="text" name="first_name" id="first_name" value="" placeholder="First name" />
+                        <input type="text" name="firstName" id="firstName" value="" placeholder="First name" required />
                     </div>
                     <div class="12u">
-                        <input type="text" name="last_name" id="last_name" value="" placeholder="last name" />
+                        <input type="text" name="lastName" id="lastName" value="" placeholder="last name" required />
                     </div>
                     <div class="12u">
-                        <input type="password" name="password" id="password" value="" placeholder="Password" />
+                        <input type="password" name="password" id="password" value="" placeholder="Password" required />
                     </div>
-                    <!-- Break -->
                     <div class="12u$">
                         <ul class="actions">
                             <li><input type="submit" value="Signup" /></li>
