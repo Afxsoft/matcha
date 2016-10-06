@@ -14,6 +14,10 @@ class User extends  Model{
      * @return array
      */
     public function userFormat($case) {
+        foreach ($_POST as $key => $value)
+        {
+            $_POST[$key] = htmlentities($value);
+        }
         switch ($case) {
             case "add" :
                 $user = array(
@@ -58,6 +62,63 @@ class User extends  Model{
             return (false);
         }
         return (true);
+    }
+
+    /**
+     * This function try in the database if login pwd combinaison work
+     * @param $DBH
+     * @param $login
+     * @param $passwd
+     * @return bool
+     */
+    function auth($login, $passwd) {
+        $passwd = hash("whirlpool", $passwd);
+        $data   = $this->fetchAll("login= '$login'");
+        if ($data[0]->login === htmlentities($login) && $data[0]->password === $passwd) {
+            return (true);
+        }
+        return (false);
+    }
+
+    /***
+     * This function check if is aleredy loggued
+     * @return bool
+     */
+    function already_loggued() {
+        if (isset($_SESSION['loggued_on_user']) && $_SESSION['loggued_on_user'] !== "") {
+            return (true);
+        } else {
+            return (false);
+        }
+    }
+
+    /**
+     * This function allows you to login if not working retrun false
+     * @param $DBH
+     * @return bool
+     */
+    function login() {
+        if ($_POST['login'] === "" || $_POST['password'] === "" || $this->auth($_POST['login'], $_POST['password']) === false) {
+            $_SESSION['loggued_on_user'] = "";
+            setMessage('error', 'No such account');
+            return (false);
+        }
+        if ($this->already_loggued()) {
+            setMessage('info', 'You are already loggued');
+        } else {
+            $_SESSION['loggued_on_user'] = $_POST['login'];
+            setMessage('success', 'Successfully loggued');
+        }
+        return (true);
+    }
+
+    /**
+     * This function destroy login session
+     */
+    function logout() {
+        $_SESSION = [];
+        setMessage('info', 'Successfully Logout');
+        session_destroy();
     }
 
     /**

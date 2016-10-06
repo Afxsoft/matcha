@@ -14,6 +14,23 @@ $app->get('/login', function ($request, $response, $args) use($app){
     $args['app']   = $app;
     return $this->renderer->render($response, 'login.phtml', $args);
 })->setName('login');
+$app->post('/login', function ($request, $response, $args) use ($connexion, $app){
+    $args['title'] = "Login";
+    $args['app']   = $app;
+    $user = new User($connexion->get_cx());
+    $user->login($_POST);
+    return $this->renderer->render($response, 'login.phtml', $args);
+});
+
+//logout
+$app->get('/logout', function ($request, $response, $args) use($connexion, $app){
+    $args['title'] = "logout";
+    $args['app']   = $app;
+    $user = new User($connexion->get_cx());
+    $user->logout();
+    return $this->renderer->render($response, 'index.phtml', $args);
+})->setName('logout');
+
 
 //Signup
 $app->get('/signup', function ($request, $response, $args) use($app){

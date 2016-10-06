@@ -14,7 +14,11 @@
     </nav>
     <a href="<?php render(path($app, 'home')); ?>" class="logo">Matcha</a>
     <nav class="right">
-        <a href="<?php  render(path($app, 'login')); ?>" class="button alt">Login</a>
+        <?php if(empty($_SESSION["loggued_on_user"])): ?>
+            <a href="<?php  render(path($app, 'login')); ?>" class="button alt">Login</a>
+        <?php else: ?>
+            <a href="<?php  render(path($app, 'logout')); ?>" class="button scrolly">Logout</a>
+        <?php endif; ?>
     </nav>
 </header>
 
