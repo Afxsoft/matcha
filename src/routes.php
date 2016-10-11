@@ -46,8 +46,29 @@ $app->post('/signup', function ($request, $response, $args) use($connexion, $app
     return $this->renderer->render($response, 'signup.phtml', $args);
 })->setName('signup');
 
-//User
-$app->get('/profil/{login}', function($resquest, $response, $args) use($connexion, $app){
+//Profile
+$app->get('/profile/{login}', function($resquest, $response, $args) use($connexion, $app){
+
+    $args['title'] = "Profile";
+    $args['app']   = $app;
+
     $user = new User($connexion->get_cx());
-    dump($user->getUserByLogin($args['login']));
-});
+    $userInfo = $user->getUserByLogin($args['login']);
+    if (empty($_SESSION['loggued_on_user']))
+    {
+        echo 'fapfap';
+    }elseif($_SESSION['loggued_on_user'] == $userInfo[0]->login){
+        $args['user'] = $userInfo[0];
+        return $this->renderer->render($response, 'profile.phtml', $args);
+    }
+})->setName('profile');
+$app->post('/profile/{login}', function($resquest, $response, $args) use($connexion, $app){
+
+    $args['title'] = "Profile";
+    $args['app']   = $app;
+
+    $user = new User($connexion->get_cx());
+    $userInfo = $user->getUserByLogin($args['login']);
+
+    return $this->renderer->render($response, 'profile.phtml', $args);
+})->setName('profile');

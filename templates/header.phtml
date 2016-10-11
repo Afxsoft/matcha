@@ -4,7 +4,7 @@
     <title><?php render($title); ?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
 </head>
 <body>
 
@@ -17,6 +17,7 @@
         <?php if(empty($_SESSION["loggued_on_user"])): ?>
             <a href="<?php  render(path($app, 'login')); ?>" class="button alt">Login</a>
         <?php else: ?>
+            <a href="/profile/<?php render($_SESSION["loggued_on_user"]); ?>" class="button alt">Profile</a>
             <a href="<?php  render(path($app, 'logout')); ?>" class="button scrolly">Logout</a>
         <?php endif; ?>
     </nav>

@@ -1,0 +1,79 @@
+<?php require('header.phtml')?>
+    <section id="main" class="wrapper">
+        <div class="inner">
+            <h3>Signup</h3>
+<?php //dump($user);?>
+            <form method="post" action="<?php render(path($app, 'home')) ?>">
+                <div class="row uniform">
+                    <div class="12u">
+                        <input type="text" name="login" id="login" value="<?php render($user->login)?>" placeholder="Login" required />
+                    </div>
+                    <div class="12u">
+                        <input type="email" name="email" id="email" value="<?php render($user->email)?>"" placeholder="Email" required />
+                    </div>
+                    <div class="12u">
+                        <input type="text" name="firstName" id="firstName" value="<?php render($user->firstName)?>"" placeholder="First name" required />
+                    </div>
+                    <div class="12u">
+                        <input type="text" name="lastName" id="lastName" value="<?php render($user->lastName)?>"" placeholder="last name" required />
+                    </div>
+                    <h4 class="12u">Sex</h4>
+                    <div class="6u 12u$(small)">
+                        <input type="radio" id="woman" name="sex" <?php (empty($user->sex) || $user->sex == 'f')? render('checked') : ''?>>
+                        <label for="woman">Femme</label>
+                    </div>
+                    <div class="6u 12u$(small)">
+                        <input type="radio" id="man" name="sex" <?php ($user->sex == 'm')? render('checked') : ''?>>
+                        <label for="man">Homme</label>
+                    </div>
+                    <h4 class="12u">Sexual orientation</h4>
+                    <div class="4u 12u$(small)">
+                        <input type="checkbox" id="homo" name="orientation" <?php (empty($user->orientation) ||$user->orienation == 'homo')? render('checked') : ''?>>
+                        <label for="homo">Homo</label>
+                    </div>
+                    <div class="4u 12u$(small)">
+                        <input type="checkbox" id="hetero" name="orientation" <?php (empty($user->orientation) ||$user->orienation == 'hetero')? render('checked') : ''?>>
+                        <label for="hetero">hetero</label>
+                    </div>
+                    <div class="12u">
+                        <input id="geocomplete" type="text" placeholder="Type in an address" size="90" value="<?php (empty($user->address)) ? render('10 rue de la paix') : render($user->address)?>" placeholder="Address" required  />
+                        <div class="map_canvas"></div>
+                    </div>
+                    <div class="12u">
+                        <input type="text" name="city" id="city" value="<?php (empty($user->city)) ? render('Paris') : render($user->city)?>" placeholder="City" required />
+                    </div>
+                    <div class="12u">
+                        <label for="zipcode">Zipcode</label>
+                        <input type="number" name="zipcode" id="zipcode" value="<?php (empty($user->zipcode)) ? render('75012') : render($user->zipcode)?>" placeholder="Zipcode" required />
+                    </div>
+                    <div class="12u">
+                        <label for="birthday">Date of birth</label>
+                        <input type="date" name="birthday" id="birthday" value="<?php (empty($user->birthday)) ? render('1991-09-29') : render(date('Y-m-d'), $user->birthday)?>" placeholder="mm/dd/YYYY" min="1970-01-01" max="<?php render(date("Y-m-d",time()))?>"required />
+                    </div>
+                    <div class="12u$">
+                        <textarea name="biography" id="biography" placeholder="Enter your biography" rows="6"><?php (!empty($user->biography)) ? render($user->biography) : ''?></textarea>
+                    </div>
+                    <div class="12u$">
+                        <div class="4u"><span class="image fit"><img src="/images/pic01.jpg" alt=""></span></div>
+                    </div>
+                    <div class="12u$">
+                        <label for="fileToUpload">Image de profile</label>
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                    </div>
+                    <div class="12u">
+                        <input type="password" name="passwordNew" id="passwordNew" value="" placeholder="New Password if you want"/>
+                    </div>
+                    <div class="12u">
+                        <input type="password" name="password" id="password" value="" placeholder="Password" required />
+                    </div>
+                    <div class="12u$">
+                        <ul class="actions">
+                            <li><input type="submit" value="Signup" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            <hr/>
+        </div>
+    </section>
+<?php require('footer.phtml')?>
