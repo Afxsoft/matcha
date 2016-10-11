@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS matcha.USER (
   address VARCHAR(255) DEFAULT NULL,
   city VARCHAR(255) DEFAULT NULL,
   zipcode INT(5) DEFAULT NULL,
-  birthdate TIMESTAMP NULL,
+  birthdate DATETIME NULL,
   password TEXT NOT NULL,
   biography TEXT DEFAULT NULL,
   recovery TEXT DEFAULT NULL

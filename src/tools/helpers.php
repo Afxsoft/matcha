@@ -68,3 +68,7 @@ function dump($var){
     var_dump($var);
     die;
 }
+
+function redirect($path){
+    header("Location: $path");
+}

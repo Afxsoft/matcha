@@ -37,13 +37,13 @@ class User extends  Model{
                     'firstName'	    => $_POST['firstName'],
                     'lastName'	    => $_POST['lastName'],
                     'sex'           => $_POST['sex'],
-                    'orientaion'    => $_POST['orientaion'],
+                    'orientation'   => $_POST['orientation'],
                     'address'       => $_POST['address'],
                     'city'          => $_POST['city'],
                     'zipcode'       => $_POST['zipcode'],
-                    'birthdate'     => strtotime($_POST['birthdate']),
+                    'birthdate'     => $_POST['birthdate'],
                     'biography'     => $_POST['biography'],
-                    'password'		=> hash("whirlpool", $_POST['passwordNew']),
+                    'password'		=> hash("whirlpool", $_POST['password']),
                 );
                 break;
             case "delete":
@@ -74,8 +74,7 @@ class User extends  Model{
         return (true);
     }
     function profileCheck() {
-
-        if ($_POST['login'] === "" || $_POST['password'] === "" || $_POST['email'] === "" || $_POST['firstName'] === "" || $_POST['lastName'] === "" || $_POST['sex'] === "" || $_POST['orientaion'] === "" || $_POST['address'] === ""  || $_POST['city'] === ""  || $_POST['zipcode'] === "" || $_POST['birthday'] === ""  || $_POST['biography'] === "")
+        if ($_POST['login'] === "" || $_POST['password'] === "" || $_POST['email'] === "" || $_POST['firstName'] === "" || $_POST['lastName'] === "" || $_POST['sex'] === "" || $_POST['orientation'] === "" || $_POST['address'] === ""  || $_POST['city'] === ""  || $_POST['zipcode'] === "" || $_POST['birthdate'] === ""  || $_POST['biography'] === "")
             return (false);
         elseif(!preg_match("/^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$/", $_POST['login'])){
             return (false);
@@ -149,24 +148,23 @@ class User extends  Model{
      * @param type $id
      * @return type
      */
-    public function updateUser($post, $id) {
+    public function updateUser() {
         if ($this->profileCheck() === false) {
             setMessage("error", "Account update failed, please check your informations");
             return (false);
         }
         $user = $this->userFormat('modify');
-
-        return $this->update(array(
-            "nickname" => $post['nickname'],
-            "mail" => $post['mail'],
-            "password" =>  $post['password'],
-            "id_role" => $post['role'],
-        ), 'id = ' . $id);
-        $userInfo = $user->getUserByLogin($user->getCurrentUser());
-        if (empty($this->update($user, 'id ='.$userInfo->id))) {
+        $userInfo = $this->getUserByLogin($this->getCurrentUser());
+        if($user['password'] != $userInfo[0]->password){
+            setMessage("error", "Incorrect password");
+            return (false);
+        }
+        if (!empty($_POST['passwordNew']))
+            $user['password'] = hash("whirlpool",$_POST['passwordNew']);
+        if (empty($this->update($user, 'id ='.$userInfo[0]->id))) {
             $login = $user['login'];
             $email = $user['email'];
-            if ($login != $userInfo->login || $email != $userInfo->email)
+            if ($login != $userInfo[0]->login || $email != $userInfo[0]->email)
             {
                 $userNameCheck  = $this->fetchAll("login= '$login'");
                 $userMailCheck  = $this->fetchAll("email= '$email'");
@@ -175,11 +173,18 @@ class User extends  Model{
                 elseif (!empty($userMailCheck[0]))
                     setMessage("error", "Mail already used");
                 return (false);
+
             }
 
         } else {
+            $login = $user['login'];
+            $email = $user['email'];
+            if ($login != $userInfo[0]->login || $email != $userInfo[0]->email)
+            {
+                $_SESSION = [];
+                session_destroy();
+            }
             setMessage("success", "Account successfully updated");
-            sendMail($user['mail'], 'Mise a jour du compte', "Bonjour ".$user['username'].",\n Votre compte a bien ete creer");
             return (true);
         }
     }
@@ -210,7 +215,6 @@ class User extends  Model{
             return (false);
         } else {
             setMessage("success", "Account successfully created");
-            sendMail($user['mail'], 'Creation de compte', "Bonjour ".$user['username'].",\n Votre compte a bien ete creer");
             return (true);
         }
     }
@@ -222,6 +226,9 @@ class User extends  Model{
      */
     public function getUserByLogin($login){
         return $this->fetchAll("login= '$login'");
+    }
+    public function getAllUser(){
+        return $this->fetchAll("state = 1");
     }
     public function getCurrentUser(){
         return $_SESSION['loggued_on_user'];

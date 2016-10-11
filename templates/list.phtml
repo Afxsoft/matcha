@@ -1,0 +1,22 @@
+<?php require('header.phtml')?>
+    <section id="exp" class="wrapper">
+        <div class="inner flex flex-3">
+            <?php foreach ($users as $user) {?>
+            <div class="flex-item box">
+                <div class="image fit">
+                    <img src="images/pic02.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h3><a><?php render($user->login)?></a></h3>
+                    <p><?php render($user->biography)?></p>
+                    <p><?php render($user->birthdate)?></p>
+                    <p><?php render($user->orientation)?></p>
+                    <p><?php render($user->address)?></p>
+                    <p><?php render($user->city)?></p>
+                    <p><?php render($user->zipcode)?></p>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+    </section>
+<?php require('footer.phtml')?>
